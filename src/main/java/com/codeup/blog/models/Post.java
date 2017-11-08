@@ -3,29 +3,45 @@ package com.codeup.blog.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name="posts")
+@Table(name = "posts")
 public class Post {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    // By default, String properties will be mapped to VARCHAR columns, if we want
+    // a column of type TEXT, we can specify it like so:
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String body;
 
-    public Post(){}
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
+    public Post() {
+    }
+
+    // Use on the CREATE action
     public Post(String title, String body) {
         this.title = title;
         this.body = body;
     }
 
-    public Post(String title, String body, long id) {
+    // use when the post is retrieved from the database
+    public Post(long id, String title, String body) {
+        this.id = id;
         this.title = title;
         this.body = body;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -45,9 +61,11 @@ public class Post {
         this.body = body;
     }
 
-    public void setId(long id) { this.id = id; }
+    public User getUser() {
+        return user;
+    }
 
-
-
-
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

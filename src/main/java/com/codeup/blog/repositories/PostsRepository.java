@@ -1,12 +1,12 @@
 package com.codeup.blog.repositories;
 
-//creates the tables in `mysql`
-
 import com.codeup.blog.models.Post;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface PostsRepository extends CrudRepository <Post, Long>{
-
-
-
+@Repository
+public interface PostsRepository extends CrudRepository<Post, Long> {
+    // empty interface body
+    // we can define custom methods here, but for the exercise, all we need
+    // are the methods that come from CrudRepository
 }
